@@ -9,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity(name="categorias")
+@Entity
+@Table(name = "categorias")
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;

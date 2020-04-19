@@ -11,10 +11,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 import br.com.loja.entities.Categoria;
 import br.com.loja.entities.Cidade;
+import br.com.loja.entities.Cliente;
+import br.com.loja.entities.Endereco;
 import br.com.loja.entities.Estado;
 import br.com.loja.entities.Produto;
+import br.com.loja.entities.enuns.TipoCliente;
 import br.com.loja.repositories.CategoriaRepository;
 import br.com.loja.repositories.CidadeRepository;
+import br.com.loja.repositories.ClienteRepository;
+import br.com.loja.repositories.EnderecoRepository;
 import br.com.loja.repositories.EstadoRepository;
 import br.com.loja.repositories.ProdutoRepository;
 
@@ -32,6 +37,12 @@ public class LojaVirtualApplication extends SpringBootServletInitializer impleme
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	ClienteRepository clienteRepository;
+	
+	@Autowired
+	EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LojaVirtualApplication.class, args);
@@ -69,6 +80,17 @@ public class LojaVirtualApplication extends SpringBootServletInitializer impleme
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("1127363323", "1193838393"));
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "308", "apto 303", "Jardim", "38220834", cli1, c1);
+	    Endereco e2 = new Endereco(null, "Av Matos", "105", "Sala 808", "Centro", "38777012", cli1, c2);
+	    
+	    cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+	    
+	    clienteRepository.saveAll(Arrays.asList(cli1));
+	    enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
 	}
 	
